@@ -1,0 +1,15 @@
+<ng-map center="53.902510, 27.561471" zoom="12">
+    <marker ng-repeat="flat in flats | flatFilter: search"
+            position="{{flat.address.latitude}}, {{flat.address.longitude}}"
+            on-click="mapCtrl.showCustomMarker(flat)"
+            icon="{{ (flat.type | flatType).icon }}">
+    </marker>
+
+    <custom-marker position="{{mapCtrl.flatToShow.address.latitude}}, {{mapCtrl.flatToShow.address.longitude}}"
+                   visible=false>
+        <flat-preview flat="mapCtrl.flatToShow"
+                      small="true"
+                      close="mapCtrl.closeCustomMarker()">
+        </flat-preview>
+    </custom-marker>
+</ng-map>

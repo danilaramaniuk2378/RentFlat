@@ -1,0 +1,43 @@
+<h1>Сменить пароль</h1>
+
+<div ng-if="!forgotRecovery.user._id">
+    <custom-alert show="true"
+                  class-type="info"
+                  on-cancel="forgotRecovery.goMain()" >
+        Неправильная или устаревшая ссылка
+    </custom-alert>
+</div>
+
+<div ng-if="forgotRecovery.user._id">
+    <form class="form" name="form" ng-submit="forgotRecovery.resetPassword(form)" novalidate>
+        <div class="form-group" ng-class="{ 'has-success': form.password.$valid && forgotRecovery.submitted,
+                                            'has-error': form.password.$invalid && forgotRecovery.submitted }">
+            <label>Пароль</label>
+
+            <input type="password" name="password" class="form-control" ng-model="forgotRecovery.password"
+                   ng-minlength="3"
+                   required/>
+
+            <p class="help-block"
+               ng-show="(form.password.$error.minlength || form.password.$error.required) && forgotRecovery.submitted">
+                Пароль должен быть хотя бы 3 символа
+            </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.confirmPassword.$valid && forgotRecovery.submitted,
+                                            'has-error': form.confirmPassword.$invalid && forgotRecovery.submitted }">
+            <label>Повторите пароль</label>
+            <input type="password" name="confirmPassword" class="form-control" ng-model="forgotRecovery.confirmPassword"
+                   match="forgotRecovery.password"
+                   ng-minlength="3" required/>
+
+            <p class="help-block"
+               ng-show="form.confirmPassword.$error.match && forgotRecovery.submitted">
+                Пароли должны совпадать
+            </p>
+        </div>
+
+        <input type="submit" value="Сменить пароль" class="btn btn-primary"/>
+
+    </form>
+</div>

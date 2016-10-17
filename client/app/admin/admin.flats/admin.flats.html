@@ -1,0 +1,29 @@
+<flat-search search="adminFlat.search"></flat-search>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>Адрес</th>
+        <th>Цена</th>
+        <th>Одобрена</th>
+        <th>Тип</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="flat in adminFlat.flats | flatFilter: adminFlat.search">
+        <td>{{ flat.address.street }} {{ flat.address.streetNumber }}</td>
+        <td>{{ flat.price }}</td>
+        <td><span class="glyphicon" ng-class="flat.isApproved ? 'glyphicon-ok' : 'glyphicon-minus'"></span></td>
+        <td>{{ (flat.type | flatType).title }}</td>
+        <td>
+            <button class="btn btn-default" ng-click="adminFlat.showUpdateModal(flat)"><span
+                    class="glyphicon glyphicon-pencil"></span></button>
+            <button class="btn btn-default" ng-click="adminFlat.showDeleteModal(flat)"><span
+                    class="glyphicon glyphicon-trash"></span></button>
+            <button class="btn btn-default" ng-click="adminFlat.showFlatDetailPage(flat)"><span
+                    class="glyphicon glyphicon-eye-open"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

@@ -1,0 +1,563 @@
+<h1>Дать объявление</h1>
+<div ng-if="!newFlat.isLogin">
+    Пожалуйста, <a ui-sref="signup">зарегистрируйтесь</a> или <a ui-sref="login">войдите</a> на сайт для того, что бы оставить объявление.
+</div>
+
+<div ng-if="newFlat.isLogin">
+    <custom-alert show="newFlat.showInfo"
+                  class-type="info"
+                  on-cancel="newFlat.showInfo = false" >
+        Заявка выслана на рассмотрение администратору
+    </custom-alert>
+
+    <form name="form" novalidate>
+
+        <div class="form-group" ng-class="{ 'has-success': form.address.$valid && newFlat.submitted,
+                                            'has-error': form.address.$invalid && newFlat.submitted }">
+            <label>Введите улицу и номер дома *</label>
+            <input ng-model="newFlat.flat.address"
+                   name="address"
+                   class="form-control"
+                   name="address"
+                   googleplace />
+            <p>Ваш адрес определен как: {{newFlat.flat.address.street}} {{newFlat.flat.address.streetNumber}}</p>
+            <p class="help-block" ng-show="form.address.$error.googleplace && newFlat.submitted">
+                Пожалуйста, введите адрес использую всплывающие подсказки
+            </p>
+            <div map-lazy-load="https://maps.google.com/maps/api/js">
+                <ng-map center="{{newFlat.flat.address.latitude}}, {{newFlat.flat.address.longitude}}" zoom="14">
+                    <marker position="[{{newFlat.flat.address.latitude}}, {{newFlat.flat.address.longitude}}]"></marker>
+                </ng-map>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.phone.$valid && newFlat.submitted,
+                                            'has-error': form.phone.$invalid && newFlat.submitted }">
+            <label>Телефон *</label>
+            <input ng-disabled=newFlat.disableForm
+                   name="phone"
+                   ng-model="newFlat.flat.phone"
+                   ui-mask="+375 (99) 999-99-99"
+                   class="form-control"
+                   type="text"
+                   required />
+            <p class="help-block" ng-show="form.phone.$error.required && newFlat.submitted">
+                Пожалуйста, введите номер телефона
+            </p>
+        </div>
+
+        <div class="form-group"  ng-class="{'has-error': !newFlat.flat.type && newFlat.submitted}">
+            <label>Что вы хотите сдать*</label>
+            <div class="radio">
+                <label>
+                    <input ng-disabled=newFlat.disableForm type="radio" name="optionsRadios" id="flatRadio" value="flat" ng-model="newFlat.flat.type">
+                    Квартиру
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input ng-disabled=newFlat.disableForm type="radio" name="optionsRadios" id="optionsRadios2" value="house" ng-model="newFlat.flat.type">
+                    Коттедж
+                </label>
+            </div>
+            <div class="radio">
+                <label>
+                    <input ng-disabled=newFlat.disableForm type="radio" name="optionsRadios" id="optionsRadios3" value="hostel" ng-model="newFlat.flat.type">
+                    Хостел
+                </label>
+            </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.price.$valid && newFlat.submitted,
+                                            'has-error': form.price.$invalid && newFlat.submitted }">
+            <label>Введите цену за сутки * (в у.е.)</label>
+            <input ng-disabled=newFlat.disableForm
+                   type="number"
+                   name="price"
+                   class="form-control"
+                   min="0"
+                   ng-model="newFlat.flat.price"
+                   required />
+
+            <p class="help-block" ng-show="form.price.$error.required && newFlat.submitted">
+                Пожалуйста, введите цену
+            </p>
+            <p class="help-block" ng-show="form.price.$error.min && newFlat.submitted">
+                Цена не может быть отритцательной
+            </p>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-success': form.roomsNumber.$valid && newFlat.submitted,
+                                            'has-error': form.roomsNumber.$invalid && newFlat.submitted }">
+            <label>Количество комнат *</label>
+            <input ng-disabled=newFlat.disableForm
+                   type="number"
+                   name="roomsNumber"
+                   class="form-control"
+                   ng-model="newFlat.flat.roomsNumber"
+                   min="1"
+                   required />
+
+            <p class="help-block" ng-show="form.roomsNumber.$error.required && newFlat.submitted">
+                Пожалуйста, введите количество комнат
+            </p>
+            <p class="help-block" ng-show="form.roomsNumber.$error.min && newFlat.submitted">
+                Минимальное количество комнат 1
+            </p>
+        </div>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image1"
+                     label="Фото #1 *"
+                     submitted="newFlat.submitted"
+                     is-required=true
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image2"
+                     label="Фото #2"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image3"
+                     label="Фото #3"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image4"
+                     label="Фото #4"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image5"
+                     label="Фото #5"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image6"
+                     label="Фото #6"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image7"
+                     label="Фото #7"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image8"
+                     label="Фото #8"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image9"
+                     label="Фото #9"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <input-photo photo-size="5MB"
+                     photo-model="newFlat.photos.image10"
+                     label="Фото #10"
+                     submitted="newFlat.submitted"
+                     is-required=false
+                     is-disabled=newFlat.disableForm>
+
+        </input-photo>
+
+        <div ng-if="newFlat.flat.type === 'flat'">
+            <div class="form-group">
+                <label>Wi-fi</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="wifiRadio" id="wifiRadio" value=true ng-model="newFlat.flat.apartments.wifi">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="wifiRadio" id="wifiRadios2" value=false ng-model="newFlat.flat.apartments.wifi">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Мебель (Опишите мебель)</label>
+                <textarea ng-disabled=newFlat.disableForm class="form-control" type="text" ng-model="newFlat.flat.apartments.furniture"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Спальных мест (2+1 или 2+2+2)</label>
+                <input ng-disabled=newFlat.disableForm class="form-control" type="text" ng-model="newFlat.flat.apartments.sleepPlaces" />
+            </div>
+
+            <div class="form-group">
+                <label>Кондиционер</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="airConditioning" id="airConditioning" value=true ng-model="newFlat.flat.apartments.airConditioning">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="airConditioning" id="airConditioning2" value=false ng-model="newFlat.flat.apartments.airConditioning">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Бытовая техника (Опишите бытовую технику)</label>
+                <textarea class="form-control" type="text" ng-model="newFlat.flat.apartments.appliances"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Полы с подогревом</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="heatedFloors" id="heatedFloors" value=true ng-model="newFlat.flat.apartments.heatedFloors">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="heatedFloors" id="heatedFloors2" value=false ng-model="newFlat.flat.apartments.heatedFloors">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Рядом (магазы, казино, рестораны, клубы, фитнес ...)</label>
+                <textarea ng-disabled=newFlat.disableForm class="form-control" type="text" ng-model="newFlat.flat.apartments.nearPlaces"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Парковка</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="parking" id="parking" value=true ng-model="newFlat.flat.apartments.parking">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="parking" id="parking2" value=false ng-model="newFlat.flat.apartments.parking">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Ремонт</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="repairs" id="repairs" value="evro" ng-model="newFlat.flat.apartments.repairs">
+                        Евро
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="repairs" id="repairs2" value="ilit" ng-model="newFlat.flat.apartments.repairs">
+                        Элит
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="repairs" id="repairs3" value="kosmetic" ng-model="newFlat.flat.apartments.repairs">
+                        Косметик
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Квартира студия</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="studioApartment" id="studioApartment" value=true ng-model="newFlat.flat.apartments.studioApartment">
+                        Да
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="studioApartment" id="studioApartment2" value=false ng-model="newFlat.flat.apartments.studioApartment">
+                        Нет
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Цена в праздничные дни</label>
+                <input ng-disabled=newFlat.disableForm class="form-control" type="number" ng-model="newFlat.flat.apartments.priceInHolidays" />
+            </div>
+
+            <div class="form-group">
+                <label>Балкон либо лоджия</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="balcon" id="balcon" value="balcony" ng-model="newFlat.flat.apartments.balcony">
+                        Балкон
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="balcon" id="balcon2" value="loggia" ng-model="newFlat.flat.apartments.balcony">
+                        Лоджия
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Отчетные документы</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="accountingDocuments" id="accountingDocuments" value=true ng-model="newFlat.flat.apartments.accountingDocuments">
+                        Да
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="accountingDocuments" id="accountingDocuments2" value=false ng-model="newFlat.flat.apartments.accountingDocuments">
+                        Нет
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Этаж</label>
+                <input ng-disabled=newFlat.disableForm class="form-control" type="number" ng-model="newFlat.flat.apartments.floor" />
+            </div>
+
+            <div class="form-group">
+                <label>Трансфер</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="transfer" id="transfer" value=true ng-model="newFlat.flat.apartments.transfer">
+                        Да
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="transfer" id="transfer2" value=false ng-model="newFlat.flat.apartments.transfer">
+                        Нет
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>2х уровневая квартира</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="twoFloorFlat" id="twoFloorFlat" value=true ng-model="newFlat.flat.apartments.twoFloorFlat">
+                        Да
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="twoFloorFlat" id="twoFloorFlat2" value=false ng-model="newFlat.flat.apartments.twoFloorFlat">
+                        Нет
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <div ng-if="newFlat.flat.type === 'house'">
+            <div class="form-group">
+                <label class="control-label">Этажей</label>
+                <input ng-disabled=newFlat.disableForm class="form-control" type="number" ng-model="newFlat.flat.cottage.floors" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Количество спальных мест</label>
+                <input ng-disabled=newFlat.disableForm class="form-control" type="text" ng-model="newFlat.flat.cottage.sleepPlaces" />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label">Бытовая техника (Опишите бытовую технику)</label>
+                <textarea ng-disabled=newFlat.disableForm class="form-control" type="text" ng-model="newFlat.flat.cottage.appliances"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>Караоке</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="karaoke" id="karaoke" value=true ng-model="newFlat.flat.cottage.karaoke">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="karaoke" id="karaoke2" value=false ng-model="newFlat.flat.cottage.karaoke">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Spa сауна</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="spa" id="spa" value=true ng-model="newFlat.flat.cottage.spa">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="spa" id="spa2" value=false ng-model="newFlat.flat.cottage.spa">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Бильярд</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="billiards" id="billiards" value=true ng-model="newFlat.flat.cottage.billiards">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="billiards" id="billiards2" value=false ng-model="newFlat.flat.cottage.billiards">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Беседка</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="alcove" id="alcove" value=true ng-model="newFlat.flat.cottage.alcove">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="alcove" id="alcove2" value=false ng-model="newFlat.flat.cottage.alcove">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Терраса</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="terrace" id="terrace" value=true ng-model="newFlat.flat.cottage.terrace">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="terrace" id="terrace2" value=false ng-model="newFlat.flat.cottage.terrace">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Камин</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="fireplace" id="fireplace" value=true ng-model="newFlat.flat.cottage.fireplace">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="fireplace" id="fireplace2" value=false ng-model="newFlat.flat.cottage.fireplace">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Летняя кухня</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="summerCuisine" id="summerCuisine" value=true ng-model="newFlat.flat.cottage.summerCuisine">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="summerCuisine" id="summerCuisine2" value=false ng-model="newFlat.flat.cottage.summerCuisine">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Бассейн</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="pool" id="pool" value=true ng-model="newFlat.flat.cottage.pool">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="pool" id="pool2" value=false ng-model="newFlat.flat.cottage.pool">
+                        Нету
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Парковка</label>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="park" id="park" value=true ng-model="newFlat.flat.cottage.parking">
+                        Есть
+                    </label>
+                </div>
+                <div class="radio">
+                    <label>
+                        <input ng-disabled=newFlat.disableForm type="radio" name="park" id="park2" value=false ng-model="newFlat.flat.cottage.parking">
+                        Нету
+                    </label>
+                </div>
+            </div>
+        </div>
+
+        <button type="button" ng-click="newFlat.submitNewFlat(form)" ng-disabled=newFlat.disableForm class="btn btn-primary">
+            <span ng-if=newFlat.disableForm>Идет загрузка</span>
+            <span ng-if=!newFlat.disableForm>Дать объявление</span>
+        </button><br/><br/>
+    </form>
+</div>

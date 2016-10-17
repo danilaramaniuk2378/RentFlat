@@ -1,0 +1,5 @@
+.thumbnail>img {
+    display: inline-block;
+    cursor: pointer;
+    width: 100%;
+}

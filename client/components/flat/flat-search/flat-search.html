@@ -1,0 +1,23 @@
+<div class="well well-lg blue-well">
+    <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group" role="group" ng-repeat="item in searchCtrl.filtersRentType">
+            <button type="button"
+                    class="btn btn-default"
+                    ng-click="searchCtrl.setRentType($index)"
+                    ng-class="{ active: $index === searchCtrl.selectedRentType }">
+                {{ item.title }}
+            </button>
+        </div>
+    </div>
+    <br/>
+    <label>Количество комнат:</label>
+    <div class="btn-group" role="group">
+        <button type="button"
+                class="btn btn-default"
+                ng-click="searchCtrl.setRentRoomNumber($index)"
+                ng-repeat="item in searchCtrl.filtersRoomNumber"
+                ng-class="{ active: searchCtrl.selectedRentRoomNumbers.indexOf($index) > -1 }">
+            {{ item.title }}
+        </button>
+    </div>
+</div>

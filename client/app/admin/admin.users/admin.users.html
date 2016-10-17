@@ -1,0 +1,23 @@
+<table class="table">
+    <thead>
+    <tr>
+        <th>Имя</th>
+        <th>Почта</th>
+        <th>Админ</th>
+        <th>Действие</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr ng-repeat="user in adminUser.users">
+        <td>{{ user.username }}</td>
+        <td>{{ user.email }}</td>
+        <td><span class="glyphicon" ng-class="user.isAdmin ? 'glyphicon-ok' : 'glyphicon-minus'"></span></td>
+        <td>
+            <button class="btn btn-default" ng-click="adminUser.showUpdateModal(user)"><span
+                    class="glyphicon glyphicon-pencil"></span></button>
+            <button class="btn btn-default" ng-click="adminUser.showDeleteModal(user)"><span
+                    class="glyphicon glyphicon-trash"></span></button>
+        </td>
+    </tr>
+    </tbody>
+</table>

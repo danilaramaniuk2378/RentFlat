@@ -1,0 +1,172 @@
+<h1><b>Описание квартиры</b></h1>
+<p class="main-details"><b>Адрес:</b> {{ flatDetails.flat.address.street }} {{ flatDetails.flat.address.streetNumber }}</p>
+<p class="main-details"><b>Цена:</b> {{ flatDetails.flat.price }} $</p>
+<p class="main-details"><b>Телефон:</b> {{ flatDetails.flat.phone | tel }}</p>
+<p class="main-details"><b>Количество комнат:</b> {{ flatDetails.flat.roomsNumber }}</p>
+
+<div>
+    <h4 class="details-header">Детали:</h4>
+    <table class="table table-hover details-table">
+
+        <!--Price in hilidays-->
+        <tr ng-hide="flatDetails.flat.apartments.priceInHolidays === undefined">
+            <th class="tr-header"> Цена в праздничные дни: </th>
+            <td> {{ flatDetails.flat.apartments.priceInHolidays }}$ </td>
+        </tr>
+
+        <!--Sleep places-->
+        <tr ng-hide="flatDetails.flat.apartments.sleepPlaces === undefined || flatDetails.flat.apartments.sleepPlaces === 'null'">
+            <th class="tr-header">
+                <i class="fa fa-bed" aria-hidden="true"></i> Спальных мест:
+            </th>
+            <td> {{ flatDetails.flat.apartments.sleepPlaces }} </td>
+        </tr>
+
+        <!--Floor-->
+        <tr ng-hide="flatDetails.flat.apartments.floor === undefined">
+            <th class="tr-header"> Этаж: </th>
+            <td> {{ flatDetails.flat.apartments.floor }} </td>
+        </tr>
+
+        <!--Studio apartment-->
+        <tr ng-hide="flatDetails.flat.apartments.studioApartment === undefined">
+            <th class="tr-header">
+                Квартира-студия:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.studioApartment"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.studioApartment"></i>
+            </td>
+        </tr>
+
+        <!--Furniture-->
+        <tr ng-hide="flatDetails.flat.apartments.furniture === undefined">
+            <th class="tr-header">Мебель:</th>
+            <td> {{ flatDetails.flat.apartments.furniture }}
+            </td>
+        </tr>
+
+        <!--Appliances-->
+        <tr ng-hide="flatDetails.flat.apartments.appliances === undefined">
+            <th class="tr-header">
+                <i class="fa fa-desktop" aria-hidden="true"></i> Техника:
+            </th>
+            <td> {{ flatDetails.flat.apartments.appliances }} </td>
+        </tr>
+
+        <!--wifi-->
+        <tr ng-hide="flatDetails.flat.apartments.wifi === undefined">
+            <th class="tr-header">
+                <i class="fa fa-wifi" aria-hidden="true"></i> wi-fi:
+            </th>
+            <td class="tr-description">
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.wifi"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.wifi"></i>
+            </td>
+        </tr>
+
+        <!--Air Conditioning-->
+        <tr ng-hide="flatDetails.flat.apartments.airConditioning === undefined">
+            <th class="tr-header">
+                Кондиционер:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.airConditioning"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.airConditioning"></i>
+            </td>
+        </tr>
+
+        <!--Heated floors-->
+        <tr ng-hide="flatDetails.flat.apartments.heatedFloors === undefined">
+            <th class="tr-header">
+                Полы с подогревом:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.heatedFloors"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.heatedFloors"></i>
+            </td>
+        </tr>
+
+        <!--Repairs?-->
+        <tr ng-hide="flatDetails.flat.apartments.repairs === undefined">
+            <th class="tr-header"> Ремонт: </th>
+            <td>
+                <span ng-if="flatDetails.flat.apartments.repairs === 'evro'">Евро</span>
+                <span ng-if="flatDetails.flat.apartments.repairs === 'ilit'">Элит</span>
+                <span ng-if="flatDetails.flat.apartments.repairs === 'kosmetic'">Косметический</span>
+            </td>
+        </tr>
+
+        <!--Near places-->
+        <tr ng-hide="flatDetails.flat.apartments.nearPlaces === undefined">
+            <th class="tr-header"> Рядом: </th>
+            <td> {{ flatDetails.flat.apartments.nearPlaces }} </td>
+        </tr>
+
+        <!--Loggia-->
+        <tr ng-hide="flatDetails.flat.apartments.balcony === undefined">
+            <th class="tr-header"> Балкон: </th>
+            <td>
+                <span ng-if="flatDetails.flat.apartments.balcony === 'loggia'">Лоджия</span>
+                <i class="fa fa-check" aria-hidden="true" ng-if="flatDetails.flat.apartments.balcony === 'balcony'"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-if="flatDetails.flat.apartments.balcony === false"></i>
+            </td>
+        </tr>
+
+        <!--Two floor flat-->
+        <tr ng-hide="flatDetails.flat.apartments.twoFloorFlat === undefined">
+            <th class="tr-header">
+                2-х уровневая квартира:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.twoFloorFlat"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.twoFloorFlat"></i>
+            </td>
+        </tr>
+
+        <!--Parking-->
+        <tr ng-hide="flatDetails.flat.apartments.parking === undefined">
+            <th class="tr-header">
+                Парковка:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.parking"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.parking"></i>
+            </td>
+        </tr>
+
+        <!--Transfer-->
+        <tr ng-hide="flatDetails.flat.apartments.transfer === undefined">
+            <th class="tr-header">
+                Трансфер:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.transfer"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.transfer"></i>
+            </td>
+        </tr>
+
+        <!--Accounting Documents-->
+        <tr ng-hide="flatDetails.flat.apartments.accountingDocuments === undefined">
+            <th class="tr-header">
+                Отчетные документы:
+            </th>
+            <td>
+                <i class="fa fa-check" aria-hidden="true" ng-show="flatDetails.flat.apartments.accountingDocuments"></i>
+                <i class="fa fa-close" aria-hidden="true" ng-hide="flatDetails.flat.apartments.accountingDocuments"></i>
+            </td>
+        </tr>
+
+
+
+    </table>
+</div>
+<h3 class="details-header">Фото:</h3>
+<figure ng-repeat="photoUrl in flatDetails.flat.photoUrls">
+    <img ng-src="{{photoUrl}}" height="500" width="810" alt="..." class="img-responsive details-image">
+</figure>
+
+<ng-map center="{{flatDetails.flat.address.latitude}}, {{flatDetails.flat.address.longitude}}" zoom="14">
+    <marker position="[{{flatDetails.flat.address.latitude}}, {{flatDetails.flat.address.longitude}}]"></marker>
+</ng-map>
+<br/>

@@ -1,0 +1,21 @@
+<flat-search search="main.search">
+</flat-search>
+
+<div ng-click="hideMap = !hideMap">
+    <a href ng-if="!hideMap"><span class="glyphicon glyphicon-map-marker"></span> Показать карту</a>
+    <a href ng-if="hideMap"><span class="glyphicon glyphicon-picture"></span> Показать объявления</a>
+</div>
+<br>
+
+<div class="row">
+    <div ng-if="!hideMap" class="col-sm-6 col-md-4 flatPreview" ng-repeat="flat in main.flats | flatFilter: main.search">
+        <flat-preview flat="flat"></flat-preview>
+    </div>
+</div>
+
+<div class="map-main-page">
+    <custom-map ng-if="hideMap"
+                flats="main.flats"
+                search="main.search">
+    </custom-map>
+</div>

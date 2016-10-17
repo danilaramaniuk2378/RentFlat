@@ -1,0 +1,14 @@
+<div class="thumbnail">
+    <img ui-sref="flat-details({ flatId:  flat._id })" ng-src={{flat.photoUrls[0]}} alt="...">
+    <div class="caption">
+        <p><b>{{ flat.address.street }} {{ flat.address.streetNumber }}</b></p>
+        <p><b>{{ flat.price }}$</b></p>
+        <p><b>Комнат:</b> {{ flat.roomsNumber }}</p>
+        <p><a href="tel:+375{{ flat.phone }}" >{{ flat.phone | tel}}</a></p>
+
+        <a ui-sref="flat-details({ flatId:  flat._id })" class="btn btn-default" ng-class="{'btn-sm': small}"
+           role="button">Детали</a>
+        <button ng-if="small" ng-click="close()" class="btn btn-default btn-sm">Закрыть</button>
+
+    </div>
+</div>

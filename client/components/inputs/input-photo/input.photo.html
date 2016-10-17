@@ -1,0 +1,34 @@
+<!--TODO: Make more configurable-->
+<div class="form-group">
+    <label>{{ label }}</label>
+    <p class="error-text" ng-show="errorFile">
+        {{errorFile.size / 1000000|number:1}}MB: максимум {{ photoSize }}
+    </p>
+
+    <p class="error-text" ng-if="!photoModel && submitted && isRequired">
+        Загрузите фотографию
+    </p>
+
+    <div class="btn btn-default btn-file">
+        Загрузить <input type="file"
+                         ngf-select
+                         ng-disabled="isDisabled"
+                         ng-model="photoModel"
+                         name="image1"
+                         accept="image/*"
+                         ngf-max-size="photoSize"
+                         ngf-resize="{ ratio: '81:50', centerCrop: true }"
+                         ng-required="isRequired"
+                         ngf-model-invalid="errorFile" />
+
+    </div>
+
+    <div ng-show="photoModel">
+        <br/>
+        <img ngf-thumbnail="photoModel"
+             class="thumb"
+             ngf-size="{ width: 324, height: 200 }" />
+        <br/>
+        <div ng-click="photoModel = null" class="delete-link">Удалить фотографию</div>
+    </div>
+</div>

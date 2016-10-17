@@ -1,0 +1,26 @@
+<div class="modal-header">
+    <h3>Редактировать пользователя</h3>
+</div>
+<div class="modal-body">
+    <form name="form" novalidate>
+        <div class="form-group" ng-class="{ 'has-success': form.username.$valid,
+                                            'has-error': form.username.$invalid }">
+            <label>Почта</label>
+            <input type="text" name="username" class="form-control" ng-model="modalUpdateUser.userToUpdate.username" required>
+
+            <p class="help-block" ng-show="form.username.$error.required">
+                Заполните поле
+            </p>
+        </div>
+
+        <label>
+        Администратор: <input type="checkbox" name="isAdmin" ng-model="modalUpdateUser.userToUpdate.isAdmin"/><br/>
+        </label>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            data-ng-click="modalUpdateUser.save(form)">Сохранить</button>
+    <button type="button" class="btn btn-default"
+            data-ng-click="modalUpdateUser.close()">Отмена</button>
+</div>

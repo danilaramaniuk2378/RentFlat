@@ -1,0 +1,31 @@
+<div class="navbar navbar-inverse navbar-static-top">
+    <div class="container">
+
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" ng-click="nav.isCollapsed = !nav.isCollapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a href="/" class="navbar-brand">Снять/Сдать</a>
+    </div>
+
+    <div class="collapse navbar-collapse" ng-class="{'in':!nav.isCollapsed}">
+
+        <ul class="nav navbar-nav">
+            <li ng-repeat="item in nav.menu" ui-sref-active="active" ng-click="nav.isCollapsed = true">
+                <a ui-sref="{{item.state}}">{{item.title}}</a>
+            </li>
+            <li ng-show="currentUser.isAdmin" ng-click="nav.isCollapsed = true" ng-class="{active: nav.$state.includes('admin')}"><a ui-sref="admin.users">Администратор</a></li>
+        </ul>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li ng-hide="currentUser" ui-sref-active="active" ng-click="nav.isCollapsed = true"><a ui-sref="signup">Зарегистрироваться</a></li>
+            <li ng-hide="currentUser" ui-sref-active="active" ng-click="nav.isCollapsed = true"><a ui-sref="login">Войти</a></li>
+            <li ng-show="currentUser" class="hidden-xs"><p class="navbar-text">{{ currentUser.username }}</p> </li>
+            <li ng-show="currentUser"  ng-click="nav.isCollapsed = true"><a ui-sref="logout">Выйти</a></li>
+        </ul>
+    </div>
+    </div>
+</div>

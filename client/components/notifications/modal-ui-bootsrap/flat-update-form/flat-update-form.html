@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h3>Редактировать квартиру</h3>
+</div>
+<div class="modal-body">
+    <form name="form" novalidate>
+        <div class="form-group" ng-class="{ 'has-success': form.price.$valid,
+                                            'has-error': form.price.$invalid }">
+            <label>Цена</label>
+            <input type="number" name="price" class="form-control" ng-model="modalUpdateFlat.flatToUpdate.price" required/>
+
+            <p class="help-block" ng-show="form.price.$error.required">
+                Заполните поле
+            </p>
+        </div>
+        <label>
+            Одобрена: <input type="checkbox" name="isApproved" ng-model="modalUpdateFlat.flatToUpdate.isApproved"/><br/>
+        </label>
+    </form>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary"
+            data-ng-click="modalUpdateFlat.save(form)">Сохранить</button>
+    <button type="button" class="btn btn-default"
+            data-ng-click="modalUpdateFlat.close()">Отмена</button>
+</div>

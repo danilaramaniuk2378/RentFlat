@@ -1,0 +1,15 @@
+.map-main-page {
+    position: absolute;
+    top: 20em;
+    bottom: 0.5em;
+    left: 1em;
+    right: 1em;
+}
+
+.map-main-page ng-map {
+    height: 100%;
+}
+
+.flatPreview {
+    z-index: 1;
+}

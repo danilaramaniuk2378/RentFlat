@@ -1,0 +1,28 @@
+.main-details {
+	font-size: 1.2em;
+}
+
+.details-header {
+	padding-left: 20px;
+	font-weight: bold;
+}
+
+.details-table {
+	font-size: 1.2em;
+}
+
+.tr-header {
+	text-align: right;
+}
+
+.details-image {
+	border-radius: 10px;
+	margin-bottom: 30px;
+}
+
+h1 {
+	margin-top: 0;
+}
+
+
+
