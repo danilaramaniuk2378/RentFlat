@@ -1,6 +1,6 @@
 # Rent Flat app
 
-See app in http://cdam.by/
+See app in https://rentflat.herokuapp.com/#/
 
 To run:
 
